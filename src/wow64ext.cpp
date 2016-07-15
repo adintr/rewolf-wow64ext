@@ -25,19 +25,19 @@
 #include "wow64ext.h"
 #include "CMemPtr.h"
 
-static HANDLE g_heap;
+//static HANDLE g_heap;
 static BOOL g_isWow64;
 
-void* malloc(size_t size)
-{
-	return HeapAlloc(g_heap, 0, size);
-}
-
-void free(void* ptr)
-{
-	if (nullptr != ptr)
-		HeapFree(g_heap, 0, ptr);
-}
+//void* malloc(size_t size)
+//{
+//	return HeapAlloc(g_heap, 0, size);
+//}
+//
+//void free(void* ptr)
+//{
+//	if (nullptr != ptr)
+//		HeapFree(g_heap, 0, ptr);
+//}
 
 int _wcsicmp(const wchar_t *string1, const wchar_t *string2)
 {
@@ -62,7 +62,7 @@ int _wcsicmp(const wchar_t *string1, const wchar_t *string2)
 extern "C" void InitWow64Ext()
 {
 	IsWow64Process(GetCurrentProcess(), &g_isWow64);
-	g_heap = GetProcessHeap();
+	//g_heap = GetProcessHeap();
 }
 
 #pragma warning(push)
