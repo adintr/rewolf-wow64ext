@@ -351,24 +351,30 @@ struct _CONTEXT64
 
 #pragma pack(pop)
 
-#ifdef WOW64EXT_EXPORTS
-#   define SPEC dllexport
-#else
-#   define SPEC dllimport
-#endif
 
 extern "C"
 {
-	__declspec(SPEC)DWORD64 __cdecl X64Call(DWORD64 func, int argC, ...);
-	__declspec(SPEC)DWORD64 __cdecl GetModuleHandle64(wchar_t* lpModuleName);
-	__declspec(SPEC)DWORD64 __cdecl GetProcAddress64(DWORD64 hModule, char* funcName);
-	__declspec(SPEC)SIZE_T __cdecl VirtualQueryEx64(HANDLE hProcess, DWORD64 lpAddress, MEMORY_BASIC_INFORMATION64* lpBuffer, SIZE_T dwLength);
-	__declspec(SPEC)DWORD64 __cdecl VirtualAllocEx64(HANDLE hProcess, DWORD64 lpAddress, SIZE_T dwSize, DWORD flAllocationType, DWORD flProtect);
-	__declspec(SPEC)BOOL __cdecl VirtualFreeEx64(HANDLE hProcess, DWORD64 lpAddress, SIZE_T dwSize, DWORD dwFreeType);
-	__declspec(SPEC)BOOL __cdecl VirtualProtectEx64(HANDLE hProcess, DWORD64 lpAddress, SIZE_T dwSize, DWORD flNewProtect, DWORD* lpflOldProtect);
-	__declspec(SPEC)BOOL __cdecl ReadProcessMemory64(HANDLE hProcess, DWORD64 lpBaseAddress, LPVOID lpBuffer, SIZE_T nSize, SIZE_T *lpNumberOfBytesRead);
-	__declspec(SPEC)BOOL __cdecl WriteProcessMemory64(HANDLE hProcess, DWORD64 lpBaseAddress, LPVOID lpBuffer, SIZE_T nSize, SIZE_T *lpNumberOfBytesWritten);
-	__declspec(SPEC)BOOL __cdecl GetThreadContext64(HANDLE hThread, _CONTEXT64* lpContext);
-	__declspec(SPEC)BOOL __cdecl SetThreadContext64(HANDLE hThread, _CONTEXT64* lpContext);
-	__declspec(SPEC)VOID __cdecl SetLastErrorFromX64Call(DWORD64 status);
+	void __cdecl InitWow64Ext();
+	DWORD64 __cdecl X64Call(DWORD64 func, int argC, ...);
+	DWORD64 __cdecl GetModuleHandle64(wchar_t* lpModuleName);
+	DWORD64 __cdecl GetProcAddress64(DWORD64 hModule, char* funcName);
+	SIZE_T __cdecl VirtualQueryEx64(HANDLE hProcess, DWORD64 lpAddress, MEMORY_BASIC_INFORMATION64* lpBuffer, SIZE_T dwLength);
+	DWORD64 __cdecl VirtualAllocEx64(HANDLE hProcess, DWORD64 lpAddress, SIZE_T dwSize, DWORD flAllocationType, DWORD flProtect);
+	BOOL __cdecl VirtualFreeEx64(HANDLE hProcess, DWORD64 lpAddress, SIZE_T dwSize, DWORD dwFreeType);
+	BOOL __cdecl VirtualProtectEx64(HANDLE hProcess, DWORD64 lpAddress, SIZE_T dwSize, DWORD flNewProtect, DWORD* lpflOldProtect);
+	BOOL __cdecl ReadProcessMemory64(HANDLE hProcess, DWORD64 lpBaseAddress, LPVOID lpBuffer, SIZE_T nSize, SIZE_T *lpNumberOfBytesRead);
+	BOOL __cdecl WriteProcessMemory64(HANDLE hProcess, DWORD64 lpBaseAddress, LPVOID lpBuffer, SIZE_T nSize, SIZE_T *lpNumberOfBytesWritten);
+	BOOL __cdecl GetThreadContext64(HANDLE hThread, _CONTEXT64* lpContext);
+	BOOL __cdecl SetThreadContext64(HANDLE hThread, _CONTEXT64* lpContext);
+	VOID __cdecl SetLastErrorFromX64Call(DWORD64 status);
 }
+
+#ifndef _WIN64
+
+#ifdef _DEBUG
+#pragma comment(lib, "wow64extd.lib")
+#else
+#pragma comment(lib, "wow64ext.lib")
+#endif
+
+#endif
