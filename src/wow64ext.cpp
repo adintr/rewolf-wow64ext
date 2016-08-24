@@ -38,26 +38,26 @@ static BOOL g_isWow64;
 //	if (nullptr != ptr)
 //		HeapFree(g_heap, 0, ptr);
 //}
-
-int _wcsicmp(const wchar_t *string1, const wchar_t *string2)
-{
-	wchar_t c1;
-	wchar_t c2;
-	int i = 0;
-	do
-	{
-		c1 = string1[i];
-		if (c1 >= 'A' && c1 <= 'Z')
-			c1 += 0x20;
-
-		c2 = string2[i];
-		if (c2 >= 'A' && c2 <= 'Z')
-			c2 += 0x20;
-
-		i++;
-	} while (c1 && c1 == c2);
-	return c1 - c2;
-}
+//
+//int _wcsicmp(const wchar_t *string1, const wchar_t *string2)
+//{
+//	wchar_t c1;
+//	wchar_t c2;
+//	int i = 0;
+//	do
+//	{
+//		c1 = string1[i];
+//		if (c1 >= 'A' && c1 <= 'Z')
+//			c1 += 0x20;
+//
+//		c2 = string2[i];
+//		if (c2 >= 'A' && c2 <= 'Z')
+//			c2 += 0x20;
+//
+//		i++;
+//	} while (c1 && c1 == c2);
+//	return c1 - c2;
+//}
 
 extern "C" void InitWow64Ext()
 {
